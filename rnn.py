@@ -59,14 +59,3 @@ class Base_RNN:
         self.V = self.V - LEARNING_RATE * dV 
         self.b1 = self.b1 - LEARNING_RATE * db1 
         self.b2 = self.b2 - LEARNING_RATE * db2
-
-
-
-
-
-    
-
-
-
-
-
