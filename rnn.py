@@ -20,7 +20,7 @@ class Base_RNN:
         # final
         self.V = np.randn(output_dims, hidden_layer_size)/ RANDOMIZER_CONSTANT
 
-        #biases, V(W(Ux)) + b1 + b2
+        #biases
         self.b1 = np.zeros((hidden_layer_size, 1))
         self.b2 = np.zeroes((output_dims, 1))
 
@@ -35,6 +35,8 @@ class Base_RNN:
         prev_timestep_h = {0:h}
 
         for i, x in enumerate(input):
+            # tanh range is [-1,1] so im not gonna use sigmoid unless im doing
+            # binary classification.
             h = np.tanh(self.W @ x + self.U @ h + self.b1)
             prev_timestep_h[i+1] = h
         
