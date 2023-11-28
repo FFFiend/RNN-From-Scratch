@@ -1,2 +1,2 @@
-# RNN-From-Scratch
-Writing an RNN from scratch for practice.
+# RNN-From-Scratch (NUMPY)
+Writing an RNN from scratch IN NUMPY! for practice
