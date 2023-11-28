@@ -17,9 +17,7 @@ class Base_RNN:
 
         Weights are initialized to random values, and bias vectors are all just 1s.
         """
-        # first mult, Ux
         # RANDOMIZER_CONSTANT to make sure initial weights aren't too large
-
 
         self.U = np.randn(hidden_layer_size, input_dims) / RANDOMIZER_CONSTANT
 
@@ -48,9 +46,8 @@ class Base_RNN:
 
         self.z = AddGate.forward(MatrixMultGate.forward(self.V, self.add), self.b2)
 
-    def backprop(self):
+    def backward(self):
         
-
         dU = None
         dW = None
         dV = None
