@@ -35,10 +35,13 @@ class Base_RNN:
         self._input_dims = input_dims
 
     
-    def forward_pass(self, prev_state, input):
+    def forward_pass(self, input):
         """
         Forward pass for the RNN
         """
+        # intiialize dummy prev_state
+        prev_state = np.zeros((self._hidden_layer_size, 1))
+
         self.u_ = MatrixMultGate.forward(self.U, input)
         self.w_ = MatrixMultGate.forward(self.W, prev_state)
 
