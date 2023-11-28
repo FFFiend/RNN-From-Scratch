@@ -3,7 +3,6 @@ File for the base Recurrent-Neural-Net model. NO IMPORTS ALLOWED!
 """
 
 import numpy as np
-from gates import MatrixMultGate, AddGate
 from nonlinearity import Softmax
 
 HIDDEN_LAYER_SIZE = 100
@@ -34,20 +33,22 @@ class Base_RNN:
         self._hidden_layer_size = hidden_layer_size
         self._input_dims = input_dims
 
+        self.hidden_state = np.zeros((self._hidden_layer_size, 1))
+
     
     def forward_pass(self, input):
         """
         Forward pass for the RNN
+
+        each input is a word from the sequence, and so it is in vector form,
+        
         """
-        # intiialize dummy prev_state
-        prev_state = np.zeros((self._hidden_layer_size, 1))
+        self.hidden_state = np.tanh(self.U @ input + self.W @ self.hidden_state + self.b1)
 
-        self.u_ = MatrixMultGate.forward(self.U, input)
-        self.w_ = MatrixMultGate.forward(self.W, prev_state)
+        z = self.V @ self.hidden_state + self.b2
 
-        self.add = np.tanh(AddGate.forward(AddGate.forward(self.u_, self.w_),self.b1))
-
-        self.z = AddGate.forward(MatrixMultGate.forward(self.V, self.add), self.b2)
+        return z, self.hidden_state
+        
 
     def backward(self):
         
