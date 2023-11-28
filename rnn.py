@@ -3,6 +3,7 @@ File for the base Recurrent-Neural-Net model. NO IMPORTS ALLOWED!
 """
 
 import numpy as np
+from loss_functions import MSE_loss
 from nonlinearity import Softmax
 
 HIDDEN_LAYER_SIZE = 100
@@ -50,14 +51,15 @@ class Base_RNN:
         return z, self.hidden_state
         
 
-    def backward(self):
-        
+    def backward(self, y, t):
+        L = MSE_loss(y, t)
+        # TODO
         dU = None
         dW = None
         dV = None
         db1 = None
         db2 = None
-        # TODO
+
 
         # only have gradient updates below
 
