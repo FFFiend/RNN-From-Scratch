@@ -11,16 +11,12 @@ class ProteinSequenceClassifierModel(torch.nn.Module):
     self.output_dim = output_dim
     self.n_layers = n_layers
     self.dropout_val = dropout_val
-
     
     self.embedding_layer = Embedding(vocab_size, embedding_dim)
     self.LSTM_layer = LSTM(embedding_dim, hidden_dim, n_layers, batch_first=True, bidirectional=True)
     num_directions = 2 if self.LSTM_layer.bidirectional else 1
-
     self.fc_1 = Linear(hidden_dim*num_directions, hidden_dim)
-
     self.fc_2 = Linear(hidden_dim, output_dim)
-
 
     self.embedding_layer.cuda()
     self.LSTM_layer.cuda()
@@ -46,19 +42,12 @@ class ProteinSequenceClassifierModel(torch.nn.Module):
 
 
     out, v = self.LSTM_layer(embedded, hidden_state)
-
     out.cuda()
-
     out = self.fc_1(out)
-
-    
     # try sigmoid in between?
     out = torch.sigmoid(out)
-
     # second dense layer
     out = self.fc_2(out)
-
-
     out = torch.sigmoid(out)
 
     return out
